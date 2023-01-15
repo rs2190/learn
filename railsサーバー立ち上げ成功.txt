@@ -1,0 +1,19 @@
+username:~/environment/first_app $ rails s
+=> Booting Puma
+=> Rails 6.1.4.1 application starting in development 
+=> Run `bin/rails server --help` for more startup options
+Puma starting in single mode...
+* Puma version: 5.4.0 (ruby ３.１.２-p62) ("Super Flight")
+*  Min threads: 5
+*  Max threads: 5
+*  Environment: development
+*          PID: 6532
+* Listening on http://127.0.0.1:8080
+* Listening on http://[::1]:8080
+Use Ctrl-C to stop
+
+
+この状態がサーバーが立ち上がった状態です。サーバーを立ち上げると、アプリケーションを実際に確認することができます。
+
+※「You don't have net-smtp installed in your application. Please add it to your Gemfile and run bundle install 」といったメッセージが出る場合があります。
+ここでは、このメッセージに対する対応は不要のため、無視して構いません。

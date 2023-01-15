@@ -1,0 +1,89 @@
+【Cloud9】
+
+■wget A
+　指定されたURLのファイル(A)をダウンロードする
+
+■sh environment.sh
+　sh：指定したファイルの中身を実行するためのコマンド
+　environment.sh：Railsと必要なソフトウェアをインストールするためのコマンドが記述されているため、そのコマンドが実行される。
+
+【rails】
+■rails -v
+　rails : Railsというコマンドの
+　-v : バージョンをターミナル上に出力させる
+
+■rails new アプリケーション名
+　Ruby on Railsで新規アプリケーションを作成する
+
+■rm -rf アプリケーション名
+　rm：removeの略で、ファイルやフォルダを削除するコマンド
+　-rf：コマンドオプションの1つで、「フォルダ内のすべてのファイルとフォルダを削除する」
+（remove recursively forceの略）
+
+■ rails s
+　Railsサーバーの立ち上げ
+※「rails s」の「s」は「server」の略。
+
+■rails g controller コントローラ名
+　コントローラーの作成。
+　※rails gは、rails generate
+　○Railsはコントローラ作成と同時に、必要なviewファイルの作成や記述の追加を、簡単に実現できるような仕組みがある
+　　例.rails g controller homes top
+　　
+　○モデルを扱うコントローラの作成
+　　rails g controller model名 new アクション名1 アクション名2 アクション名3・・・
+　　使えるアクションは以下。
+　　アクション名	役割
+　　new				データの新規作成フォームを表示する
+　　create			データを追加（保存）する
+　　index			データの一覧を表示する
+　　show			データの内容（詳細）を表示する
+　　edit			データを更新するためのフォームを表示する
+　　update			データを更新する
+　　destroy			データを削除する
+
+■rails d controller コントローラ名
+　コントローラーの削除。
+　※rails dは、rails destroy
+
+■rails g model モデル名
+　rails gはControllerを作成する時も出てきました。
+　rails gの後に、作成したいもの(controllerやmodel)を指定することで、必要なファイルをまとめて作成できる
+
+■rails destroy model モデル名
+　model削除
+
+■rails db:migrate
+　migrationファイルからテーブルを作成するコマンド
+
+■rake db:migrate:reset
+■rails db:migrate reset
+　DB全レコードを削除して、migrationファイルからテーブルを作成するコマンド
+
+■rails g migration Addカラム名Toテーブル名 カラム名:型名
+　カラムの追加コマンド
+
+■rails g migration Removeカラム名Fromテーブル名 カラム名:型名
+　カラムの削除コマンド
+
+■ps -ef | grep puma
+　PumaとはRails(Ruby/Rackアプリケーション)のWebサーバーの番号を確認
+
+■rails routes
+　routes.rbの中身を見ることで、既に指定しているルーティングを確認することが出来る。
+　しかし、コードに誤りがある場合、ルーティングが想定通りになっていないことに気付けない場合があり、
+　それを確認するために必要なのがrails routesというコマンド
+
+■rails active_storage:install
+　ActiveStorageをインストールする
+　ActiveStorageとは
+　Railsで画像の投稿や表示を行うためのものです。
+　画像は通常のカラムとして保存できないため、特別な保存方法が必要になり、それを行うのがActiveStorageです。
+　
+【SQLite】
+■irb
+　sqliteという、データベースに必要なソフトウェアのバージョンを確認
+　Rubyをターミナル上で実行するためのコマンドで、sqliteのバージョンはRubyの記述を使って確認する。
+
+■SQLite3::SQLITE_VERSION
+　SQLite3のversion確認

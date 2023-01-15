@@ -1,0 +1,139 @@
+【※注意】
+Rails,Rubyをインストールしてから実施すること。
+
+1.コンソールを開いて、【ec2-user:~/environment $】になっていることを確認する。
+　確認後、【rails new アプリ名】で作成。作成には時間がかかる。
+　間違えたら、【rm -rf アプリケーション名】で削除。
+　
+2.コンソールで、【cd 作成したアプリ名】。
+
+3.続けて、【rails s】で立ち上げ。
+
+4.立ち上げ完了成功したら、メニューバーにある「Preview」をクリックし、「Preview Running Application」をクリック。
+
+5.その後、画面でBlocked host～に出たら、以下のファイルを修正。
+
+　【対象】
+　/アプリ名/config/environments/development.rb
+
+　【ちなみに】
+　development.rb
+　開発環境(今回はCloud9)に対応
+　開発中にはこれが読み込まれる
+
+　production.rb
+　本番環境に対応
+　実際にアプリケーションを公開して運用していく際にはこれが読み込まれる
+
+　test.rb
+　テスト環境に対応
+　テストが実行される場合に読み込まれる(テストについては後のレッスンで紹介します)
+
+5-1.以下のソースを、一番下のendの一つ上に追加して、どんなホストからでもアクセスできるようにする。
+    config.hosts.clear
+
+6.pryコマンドを実行できるようインストールする。
+
+6-1./アプリ名/Gemfile を開く。
+
+6-2.以下のように修正する。
+  group :development, :test do
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  【↓を追加する。】
+  gem 'pry-rails'end
+
+6-3.cdコマンドで、作成したアプリに移動。(pwdコマンドで。カレントディレクトリを確認可能。)
+
+6-4.その後、bundle install を入力して実行。インストールが成功したら「rails c」を入力。
+    以下のように、なっていればOK
+    
+【以下、ログ（例）】
+ec2-user:~/environment/ryu_s_app (master) $ bundle install
+Using rake 13.0.6
+      ・
+      ・
+      ・
+Using pry 0.14.1
+Using pry-rails 0.3.9
+      ・
+      ・
+      ・
+Bundle complete! 18 Gemfile dependencies, 84 gems now installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+ec2-user:~/environment/ryu_s_app (master) $ rails c
+Running via Spring preloader in process 23833
+Loading development environment (Rails 6.1.7)
+[1] pry(main)> exit
+ec2-user:~/environment/ryu_s_app (master) $ 
+
+
+7.モデルを作成する。
+
+7-1.cdコマンドで、作成したアプリに移動する。
+
+7-2.コマンドを入力して実行。【rails g model モデル名】
+
+7-3.実行後のコンソールログを確認。
+
+【以下、ログ（例）】
+ec2-user:~/environment/ryu_s_app (master) $ rails g model Basic
+Running via Spring preloader in process 29316
+      invoke  active_record
+      【↓このファイルが出来上がっているか確認する。】
+      create    db/migrate/20230104113617_create_basics.rb
+      create    app/models/basic.rb
+      invoke    test_unit
+      create      test/models/basic_test.rb
+      create      test/fixtures/basics.yml
+
+7-4. 7-3.コンソールログで出力したdb/migrate/配下のrbフォルダを開き、カラムを追加。
+
+7-5.カラム追加後、【rails db:migrate】を入力して実行してログの通り出力されるか確認する。
+
+【以下、ログ（例）】
+ec2-user:~/environment/ryu_s_app (master) $ rails db:migrate
+Running via Spring preloader in process 6178
+== 20230104113617 CreateBasics: migrating =====================================
+-- create_table(:basics)
+   -> 0.0143s
+== 20230104113617 CreateBasics: migrated (0.0161s) ============================
+
+8.コントローラーを作成する。
+
+8-1. 7-2.作成したモデルに対してコントローラーを作成する。
+
+8-2.コマンドを入力して実行。【rails g controller model名 new アクション名1 アクション名2 アクション名3・・・】
+
+　【ちなみに】
+　使えるアクションは以下。
+　アクション名	役割
+　new			データの新規作成フォームを表示する
+　create		データを追加（保存）する
+　index			データの一覧を表示する
+　show			データの内容（詳細）を表示する
+　edit			データを更新するためのフォームを表示する
+　update		データを更新する
+　destroy		データを削除する
+
+【実行ログ】
+ec2-user:~/environment/ryu_s_app (master) $ rails g controller basics new index show edit
+Running via Spring preloader in process 12749
+      create  app/controllers/basics_controller.rb
+       route  get 'basics/new'
+              get 'basics/index'
+              get 'basics/show'
+              get 'basics/edit'
+      invoke  erb
+      create    app/views/basics
+      create    app/views/basics/new.html.erb
+      create    app/views/basics/index.html.erb
+      create    app/views/basics/show.html.erb
+      create    app/views/basics/edit.html.erb
+      invoke  test_unit
+      create    test/controllers/basics_controller_test.rb
+      invoke  helper
+      create    app/helpers/basics_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    scss
+      create      app/assets/stylesheets/basics.scss

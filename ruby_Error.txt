@@ -1,0 +1,23 @@
+■wrong number of arguments (given x, expected y)
+　メソッドの引数が異なる。
+　呼び出したいメソッドに与えるべき引数が少ない、または多い状態に出力されるエラー。
+
+■undefined method 'X' for main:Object (NoMethodError)
+　'X'のメソッドはObjectのmainにない
+　スペルミスなどの記載ミスが原因
+
+■syntax error, unexpected expecting end-of-input
+　syntax error・・・構文エラー
+　unexpected expecting end-of-input・・・予期しない入力の最後
+
+　構文上のエラー
+　最後までプログラムコードを読んだけどまだなにかあるはず
+
+■undefined method `X' for nil:NilClass
+　直訳すると「nil:NilClassに対してXというメソッドは定義されていません」という意味になります。
+　今は@zに対してXメソッドを使おうとしているので、@zがnil(何もない状態)であると分かります。 
+　undefined methodのエラーはこのように読むことができます。
+　エラーの中でもかなり頻出するものですので覚えておきましょう。 
+　
+■NoMethodError in Bs#X
+　エラーが起きた時に実行していたアクションはX

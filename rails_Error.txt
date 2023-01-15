@@ -1,0 +1,7 @@
+■gem install [gem名] -v 'x.x.x' --source 'https://rubygems.org/'
+>>Ruby on Railsのアップデートによる可能性が高い
+>>出力したこれをコピーして、ターミナルでたたく。
+
+■Could not find generator 'controler'. Maybe you meant "controller"?
+>>controlerという名前のジェネレーターが見つかりませんでした。もしかしてcontrollerのことですか？
+>>Railsではスペルを間違えた時には正解を提案してくれるので、出力文はよく読むようにする。
