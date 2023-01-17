@@ -1,0 +1,52 @@
+【※実行したタイミングによってバージョンに細かい違いはあるかもしれませんが、先頭の数字が合っていれば問題ありません。】
+
+                        【↓のコマンド入力】
+ec2-user:~/environment $ wget https://wals.s3.ap-northeast-1.amazonaws.com/curriculum/rails/environment.sh 
+
+                              ・
+                              ・
+                              ・
+
+                        【↓のコマンド入力】
+ec2-user:~/environment $ sh environment.sh
+
+                              ・
+                              ・
+                              ・
+                              10分ぐらいまつ
+                              ・
+                              ・
+                              ・
+
+Done installing documentation for sqlite3 after 1 seconds
+1 gem installed
+                        【↓のコマンド入力】
+ec2-user:~/environment $ rails -v
+Rails 6.1.4
+                        【↓のコマンド入力】
+ec2-user:~/environment $ node -v
+v16.19.0
+                        【↓のコマンド入力】
+ec2-user:~/environment $ yarn -v
+1.22.19
+                        【↓のコマンド入力】
+ec2-user:~/environment $ convert -version
+Version: ImageMagick 7.1.0-58 (Beta) Q16-HDRI x86_64 1590c22ec:20221230 https://imagemagick.org
+Copyright: (C) 1999 ImageMagick Studio LLC
+License: https://imagemagick.org/script/license.php
+Features: Cipher DPC HDRI OpenMP(4.5) 
+Delegates (built-in): jng jpeg lzma png tiff xml zlib
+Compiler: gcc (7.3)
+                        【↓のコマンド入力】
+ec2-user:~/environment $ irb
+
+           【↓のコマンド入力】
+3.1.2 :001 > require 'sqlite3'
+
+           【↓のコマンド入力】
+3.1.2 :002 > SQLite3::SQLITE_VERSION
+ => "3.40.1" 
+
+           【↓のコマンド入力】
+3.1.2 :003 > exit
+ec2-user:~/environment $ 

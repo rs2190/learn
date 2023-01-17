@@ -1,0 +1,7 @@
+1	git clone ダウンロードしたいプロジェクトのsshアドレス
+2	cdコマンドで手順1のディレクトリを移動する。
+3	bundle install 
+4	rails webpacker:install 
+5	途中で入力を聞かれたらyを入力してEnterで押す
+6	rails webpacker:compile 
+7	rails db:migrate

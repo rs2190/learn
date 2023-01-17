@@ -1,0 +1,88 @@
+---------------------------------------------------------
+【事前準備】
+①【rails_install事前準備】Cloud9の容量を変更する.txt
+　⇒インストールする前に実施。
+---------------------------------------------------------
+
+【実行したタイミングによってバージョンに細かい違いはあるかもしれませんが、先頭の数字が合っていれば問題ありません。】
+
+                        【↓のコマンド入力】
+ec2-user:~/environment $ rvm get stable
+
+Downloading https://get.rvm.io
+Downloading https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer.asc
+Verifying /home/ec2-user/.rvm/archives/rvm-installer.asc
+gpg: Signature made Tue 23 Jul 2019 09:59:45 PM UTC using RSA key ID 39499BDB
+gpg: Good signature from "Piotr Kuczynski <piotr.kuczynski@gmail.com>"
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 7D2B AF1C F37B 13E2 069D  6956 105B D0E7 3949 9BDB
+GPG verified '/home/ec2-user/.rvm/archives/rvm-installer'
+Downloading https://github.com/rvm/rvm/archive/1.29.12.tar.gz
+Downloading https://github.com/rvm/rvm/releases/download/1.29.12/1.29.12.tar.gz.asc
+gpg: Signature made Fri 15 Jan 2021 06:46:22 PM UTC using RSA key ID 39499BDB
+gpg: Good signature from "Piotr Kuczynski <piotr.kuczynski@gmail.com>"
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 7D2B AF1C F37B 13E2 069D  6956 105B D0E7 3949 9BDB
+GPG verified '/home/ec2-user/.rvm/archives/rvm-1.29.12.tgz'
+Upgrading the RVM installation in /home/ec2-user/.rvm/
+    RVM PATH line found in /home/ec2-user/.mkshrc /home/ec2-user/.profile /home/ec2-user/.bashrc /home/ec2-user/.zshrc.
+    RVM sourcing line found in /home/ec2-user/.profile /home/ec2-user/.bash_profile /home/ec2-user/.zlogin.
+Upgrade of RVM in /home/ec2-user/.rvm/ is complete.
+
+Thanks for installing RVM ?
+Please consider donating to our open collective to help us maintain RVM.
+
+?  Donate: https://opencollective.com/rvm/donate
+
+
+RVM reloaded!
+
+                        【↓のコマンド入力】
+ec2-user:~/environment $ rvm install 3.1.2
+
+Searching for binary rubies, this might take some time.
+No binary rubies available for: amazon/2/x86_64/ruby-3.1.2.
+Continuing with compilation. Please read 'rvm help mount' to get more information on binary rubies.
+Checking requirements for amazon.
+Requirements installation successful.
+Installing Ruby from source to: /home/ec2-user/.rvm/rubies/ruby-3.1.2, this may take a while depending on your cpu(s)...
+ruby-3.1.2 - #downloading ruby-3.1.2, this may take a while depending on your connection...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 19.6M  100 19.6M    0     0   115M      0 --:--:-- --:--:-- --:--:--  115M
+No checksum for downloaded archive, recording checksum in user configuration.
+ruby-3.1.2 - #extracting ruby-3.1.2 to /home/ec2-user/.rvm/src/ruby-3.1.2.....
+ruby-3.1.2 - #configuring..........................................................................
+ruby-3.1.2 - #post-configuration..
+ruby-3.1.2 - #compiling.............................................................................................
+ruby-3.1.2 - #installing....................................
+ruby-3.1.2 - #making binaries executable...
+Installed rubygems 3.3.7 is newer than 3.0.9 provided with installed ruby, skipping installation, use --force to force installation.
+ruby-3.1.2 - #gemset created /home/ec2-user/.rvm/gems/ruby-3.1.2@global
+ruby-3.1.2 - #importing gemset /home/ec2-user/.rvm/gemsets/global.gems................................................................
+ruby-3.1.2 - #generating global wrappers........
+ruby-3.1.2 - #gemset created /home/ec2-user/.rvm/gems/ruby-3.1.2
+ruby-3.1.2 - #importing gemsetfile /home/ec2-user/.rvm/gemsets/default.gems evaluated to empty gem list
+ruby-3.1.2 - #generating default wrappers........
+ruby-3.1.2 - #adjusting #shebangs for (gem irb erb ri rdoc testrb rake).
+Install of ruby-3.1.2 - #complete
+Ruby was built without documentation, to build it run: rvm docs generate-ri
+
+                        【↓のコマンド入力】
+ec2-user:~/environment $ rvm --default use 3.1.
+2
+Using /home/ec2-user/.rvm/gems/ruby-3.1.2
+
+                        【↓のコマンド入力】
+ec2-user:~/environment $ rvm list
+
+   ruby-2.6.3 [ x86_64 ]
+=* ruby-3.1.2 [ x86_64 ]
+
+# => - current
+# =* - current && default
+#  * - default
+
+ec2-user:~/environment $ 
