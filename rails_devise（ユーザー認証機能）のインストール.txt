@@ -1,0 +1,134 @@
+【手順】
+①Gemfileの一番下に以下を記載。
+　gem 'devise'
+
+②cdで移動。
+
+③以下のコマンドを入力。
+　bundle install
+
+【実行して、以下のように出力したらOK】
+ec2-user:~/environment $ cd meshiterro/
+ec2-user:~/environment/meshiterro (main) $ bundle install
+Fetching gem metadata from https://rubygems.org/..........
+Resolving dependencies...
+
+・
+・
+・
+Installing devise 4.8.1
+Bundle complete! 20 Gemfile dependencies, 92 gems now installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+ec2-user:~/environment/meshiterro (main) $ 
+
+
+
+④以下のコマンドを入力。
+　rails g devise:install
+
+【実行して、以下のように出力したらOK】
+ec2-user:~/environment $ cd meshiterro/
+ec2-user:~/environment/meshiterro (main) $ rails g devise:install
+Running via Spring preloader in process 4048
+      create  config/initializers/devise.rb
+      create  config/locales/devise.en.yml
+===============================================================================
+
+Depending on your application's configuration some manual setup may be required:
+
+  1. Ensure you have defined default url options in your environments files. Here
+     is an example of default_url_options appropriate for a development environment
+     in config/environments/development.rb:
+
+       config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+     In production, :host should be set to the actual host of your application.
+
+     * Required for all applications. *
+
+  2. Ensure you have defined root_url to *something* in your config/routes.rb.
+     For example:
+
+       root to: "home#index"
+     
+     * Not required for API-only Applications *
+
+  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
+     For example:
+
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+     * Not required for API-only Applications *
+
+  4. You can copy Devise views (for customization) to your app by running:
+
+       rails g devise:views
+       
+     * Not required *
+
+===============================================================================
+ec2-user:~/environment/meshiterro (main) $ 
+
+
+⑤以下のコマンドを入力。
+　rails g devise User
+
+【実行して、以下のように出力したらOK】
+ec2-user:~/environment/meshiterro (main) $ rails g devise User
+Running via Spring preloader in process 5356
+      invoke  active_record
+      create    db/migrate/20230117123342_devise_create_users.rb　⇒⑥で使用する。
+      create    app/models/user.rb
+      invoke    test_unit
+      create      test/models/user_test.rb
+      create      test/fixtures/users.yml
+      insert    app/models/user.rb
+       route  devise_for :users
+ec2-user:~/environment/meshiterro (main) $ 
+
+⑥⑤で作成されたdevise_create_users.rbを確認。
+
+「:database_authenticatable, :registerable,」のように、devise の後ろに :（コロン）で始まる部分が devise の機能名です。
+
+:database_authenticatable（パスワードの正確性を検証）
+:registerable（ユーザ登録や編集、削除）
+:recoverable（パスワードをリセット）
+:rememberable（ログイン情報を保存）
+:validatable（email のフォーマットなどのバリデーション）
+
+⑦カラムを追加などする場合、以下のように追加。
+例）
+## 名前を保存するカラム
+t.string :name
+
+⑧⑦で変更した場合、以下のコマンドを押下。
+　rails db:migrate
+
+【実行して、以下のように出力したらOK】
+ec2-user:~/environment/meshiterro (main) $ rails db:migrate
+Running via Spring preloader in process 11587
+== 20230117123342 DeviseCreateUsers: migrating ================================
+-- create_table(:users)
+   -> 0.0045s
+-- add_index(:users, :email, {:unique=>true})
+   -> 0.0017s
+-- add_index(:users, :reset_password_token, {:unique=>true})
+   -> 0.0013s
+== 20230117123342 DeviseCreateUsers: migrated (0.0079s) =======================
+
+ec2-user:~/environment/meshiterro (main) $ 
+
+⑨config/routes.rbを確認する。
+
+Rails.application.routes.draw do
+	
+	↓が追加されていることを確認する。
+	devise_for :users
+
+end
+
+※rails routeで確認した結果
+⇒「rails_devise（ユーザー認証機能）のroute.txt」。
+
+
