@@ -5,3 +5,5 @@
 5	途中で入力を聞かれたらyを入力してEnterで押す
 6	rails webpacker:compile 
 7	rails db:migrate
+8	git config --global user.email https://github.com/settings/emails > Keep my email addresses private（チェック済）の太い黒字のアドレス
+9	git config --global user.name ""
