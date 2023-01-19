@@ -1,10 +1,10 @@
 【手順】
-①Gemfileの一番下に以下を記載。
+■１．Gemfileの一番下に以下を記載。
 　gem 'devise'
 
-②cdで移動。
+■２．cdで移動。
 
-③以下のコマンドを入力。
+■３．以下のコマンドを入力。
 　bundle install
 
 【実行して、以下のように出力したらOK】
@@ -23,7 +23,7 @@ ec2-user:~/environment/meshiterro (main) $
 
 
 
-④以下のコマンドを入力。
+■４．以下のコマンドを入力。
 　rails g devise:install
 
 【実行して、以下のように出力したらOK】
@@ -71,8 +71,8 @@ Depending on your application's configuration some manual setup may be required:
 ec2-user:~/environment/meshiterro (main) $ 
 
 
-⑤以下のコマンドを入力。
-　rails g devise User
+■５．以下のコマンドを入力。
+　rails g devise ○○
 
 【実行して、以下のように出力したらOK】
 ec2-user:~/environment/meshiterro (main) $ rails g devise User
@@ -87,7 +87,7 @@ Running via Spring preloader in process 5356
        route  devise_for :users
 ec2-user:~/environment/meshiterro (main) $ 
 
-⑥⑤で作成されたdevise_create_users.rbを確認。
+■６．５.で作成されたdevise_create_users.rbを確認。
 
 「:database_authenticatable, :registerable,」のように、devise の後ろに :（コロン）で始まる部分が devise の機能名です。
 
@@ -97,12 +97,12 @@ ec2-user:~/environment/meshiterro (main) $
 :rememberable（ログイン情報を保存）
 :validatable（email のフォーマットなどのバリデーション）
 
-⑦カラムを追加などする場合、以下のように追加。
+■７．カラムを追加などする場合、以下のように追加。
 例）
 ## 名前を保存するカラム
 t.string :name
 
-⑧⑦で変更した場合、以下のコマンドを押下。
+■８．以下のコマンドを入力。（７．で変更したなら必ず実行。）
 　rails db:migrate
 
 【実行して、以下のように出力したらOK】
@@ -131,4 +131,217 @@ end
 ※rails routeで確認した結果
 ⇒「rails_devise（ユーザー認証機能）のroute.txt」。
 
+■９．ページを表示させる（認証機能の確認）
+
+以下をアクセスして表示できることを確認。
+・https://...amazonaws.com/５.で入力した○○(小文字で複数形)/sign_up
+・https://...amazonaws.com/５.で入力した○○(小文字で複数形)/sign_in
+
+現状、特に View や Controller は作成していませんが、この時点で、サインアップやログインのページは表示できるようになっています。
+
+【devise をインストールして、deviseのモデルを作成しただけで、以下の最低限の認証機能が完成しています。】
+・必要なカラムが用意されている
+・ルーティングが自動で追加されている
+・devise が持っている、基本的な View を表示させる
+
+
+■１０．Viewを作成するなら、以下のコマンドを入力。
+
+【特に７．で他項目でユーザ登録やログインをするようにカラムを作成する場合は↓を必読かつ実施。】
+
+　rails g devise:views
+
+【補足】
+初期状態のdeviseでは name（他のテキスト入力項目） を入力するフォームが存在せず
+ユーザ登録(サインアップ)の際に name（他のテキスト入力項目）を登録できませんし、
+ログインの際にも name（他のテキスト入力項目） を入力することができません。
+また、rails g devise:views コマンドによって作成される View は、devise のさまざまな機能と関連付けられています。
+
+【実行して、以下のように出力したらOK】
+ec2-user:~/environment/meshiterro (main) $ rails g devise:views
+Running via Spring preloader in process 18873
+      invoke  Devise::Generators::SharedViewsGenerator
+      create    app/views/devise/shared
+      create    app/views/devise/shared/_error_messages.html.erb
+      create    app/views/devise/shared/_links.html.erb
+      invoke  form_for
+      create    app/views/devise/confirmations
+      create    app/views/devise/confirmations/new.html.erb
+      create    app/views/devise/passwords
+      create    app/views/devise/passwords/edit.html.erb
+      create    app/views/devise/passwords/new.html.erb
+      create    app/views/devise/registrations
+      create    app/views/devise/registrations/edit.html.erb
+      create    app/views/devise/registrations/new.html.erb
+      create    app/views/devise/sessions
+      create    app/views/devise/sessions/new.html.erb
+      create    app/views/devise/unlocks
+      create    app/views/devise/unlocks/new.html.erb
+      invoke  erb
+      create    app/views/devise/mailer
+      create    app/views/devise/mailer/confirmation_instructions.html.erb
+      create    app/views/devise/mailer/email_changed.html.erb
+      create    app/views/devise/mailer/password_change.html.erb
+      create    app/views/devise/mailer/reset_password_instructions.html.erb
+      create    app/views/devise/mailer/unlock_instructions.html.erb
+ec2-user:~/environment/meshiterro (main) $ 
+
+■１１．app/views/devise/registrations/new.html.erb　を開いて入力項目を作成。
+
+例.)
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= render "devise/shared/error_messages", resource: resource %>
+
+<div class="field">
+  <%= f.label :name %><br> 　　←：５.で入力した○○(小文字）
+  <%= f.text_field :name %>　　←：５.で入力した○○(小文字）
+</div>
+
+■１２．Controllerを編集する前に。
+
+【特に７．で他項目でユーザ登録やログインをするようにカラムを作成する場合は↓を必読かつ実施。】
+
+【補足】
+初期状態の devise は、サインアップ、サインイン時に「email」と「パスワード」しか受け取ることを許可されていません。
+したがって、現状では name（５.で入力した○○(小文字）） を入力しても、データとして保存することはできない状態となっています。
+
+ここで、こちらで指定したデータは保存できるよう、許可を与える必要があります。
+これは以前学んだストロングパラメータと同様の機能です。早速記述していきます。
+
+deviseのストロングパラメータを編集する場合、ApplicationController に記述していきます。
+deviseのコントローラは直接修正できないため、全てのコントローラに対する処理を行える権限を持つ、ApplicationControllerに
+記述する必要があります。
+
+ApplicationControllerはapp/controllersフォルダのapplication_controller.rbファイルにあります。
+ひとまず、以下のように記述を追加していきましょう。
+
+■１３．app/controllers/application_controller.rb　を編集する。
+
+class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
+end
+
+【補足】
+●before_action :configure_permitted_parameters, if: :devise_controller?
+⇒devise利用の機能（ユーザ登録、ログイン認証など）が使われる前にconfigure_permitted_parametersメソッドが実行されます。
+
+●configure_permitted_parametersメソッドでは、devise_parameter_sanitizer.permit
+⇒ユーザー登録(sign_up)の際に、ユーザー名(name)のデータ操作を許可しています。
+　先ほど述べたように、これはストロングパラメータと同様の機能です。
+　privateは記述をしたコントローラ内でしか参照できません。
+　一方、protectedは呼び出された他のコントローラからも参照することができます。
+
+■１４．動作確認する
+https://...amazonaws.com/５.で入力した○○(小文字で複数形)/sign_up
+
+【補足】
+フォームに任意の名前、メールアドレスとパスワード、パスワード確認を入力して「Sign up」を押すと、トップページへ遷移します。
+デフォルトではユーザ登録後の遷移先はルートパスになっています。
+また、ユーザ登録後はログイン状態にあります。
+
+※「Sign up」はユーザ登録、「Sign in」はログインのことです。頻繁に出てきますので覚えておきましょう。
+
+■１５．ログアウトについて
+
+ユーザ登録後はログイン状態になります。
+このままではずっと、ログイン状態のため、ログアウト機能を実装する必要があります。
+
+devise によってすでに機能自体は作成されているため、実装しなければならないのはログアウト用のリンクのみです。
+
+ただし、ログアウトはHTTPメソッドがDELETEであることに注意しましょう。
+
+link_toのHTTPメソッドは、特に設定しなければGETになります。
+link_to ヘルパーの method オプションを設定して、ログアウトリンクを作成します。
+
+■１６．動的なヘッダーを作成する（app/views/layouts/application.html.erb）
+　以下のように記載。
+
+<body>
+  <header>
+    <% if user_signed_in? %>
+      <li>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to "新規登録", new_user_registration_path %>
+      </li>
+      <li>
+        <%= link_to "ログイン", new_user_session_path %>
+      </li>
+    <% end %>
+  </header>  <%= yield %>
+</body>
+
+【補足】
+<% if user_signed_in? %>は、devise 側で用意しているヘルパーメソッドです。
+devise の機能を使ってログインしているか、ログインしていないかを判断し、どちらかによってブラウザに表示する内容を変更することができます。
+具体的には、以下のような処理を行なっています。
+
+・ログイン済みならば true が、ログインしていなければ false が返されます。
+・ログイン済みの場合、<% if user_signed_in? %>から<% else %>間のコードが表示されます。
+・ログインしていない場合、<% else %>から<% end %>間のコードが表示されます。
+
+■１７．ログインしている状態、ログインしていない状態を確認する
+①https://...amazonaws.com/５.で入力した○○(小文字で複数形)/sign_in　へアクセス
+②ユーザ新規登録時に入力したメールアドレスとパスワードをフォームに入力して「Log in」を押下
+※このように、<% if user_signed_in? %>を使用することで、ログインしている時としていない時で表示を分けることができる。
+
+■１８．devise のフォームヘルパーを変更する
+deviseで提供される画面では、
+フォームを作成するヘルパーとしてform_forが使用されています。form_forは現在は非推奨ですので、form_withへと変更します。
+変更するファイルはユーザー登録画面のログイン画面です。
+
+	・app/views/devise/registrations/new.html.erb
+	<%= form_with model: @user, url: user_registration_path do |f| %>
+
+	・app/views/devise/sessions/new.html.erb
+	<%= form_with model: @user, url: user_session_path do |f| %>
+
+■１９．サインイン後のページを作成する
+
+①route,rbにルートを追加
+例.) get '/homes/about', as: 'about'
+
+②Controllerにメソッドを追加。
+
+例.)
+class HomesController < ApplicationController
+
+  def about
+  end
+
+end
+
+③Viewを作成
+コントローラーと同じ名前の配下に.html.erbを作成
+
+■２０．サインイン後の遷移先の処理を実施。
+１９．を参照して作成したページを遷移先に設定
+
+app/controllers/application_controller.rbを以下のように記述する。
+
+例.）
+before_action :configure_permitted_parameters, if: :devise_controller?
+
+  def after_sign_in_path_for(resource)
+    about_path
+  end
+
+【補足】
+after_sign_in_path_forはDeviseが用意しているメソッドで、サインイン後にどこに遷移するかを設定しているメソッドです。
+
+after_sign_in_path_forは、Deviseの初期設定ではroot_pathになっています。サインイン後にルートパスに遷移していたのはこのためです。
+上記のような記述をすることで、初期設定を上書きすることができます。
+今回はAboutページへ遷移するように設定しました。
+
+■２１．サインアウト後の遷移先の処理を実施。
+１９．を参照して作成したページを遷移先に設定
 
