@@ -345,3 +345,21 @@ after_sign_in_path_for‚ÍADevise‚Ì‰Šúİ’è‚Å‚Íroot_path‚É‚È‚Á‚Ä‚¢‚Ü‚·BƒTƒCƒ“ƒCƒ
 ¡‚Q‚PDƒTƒCƒ“ƒAƒEƒgŒã‚Ì‘JˆÚæ‚Ìˆ—‚ğÀ{B
 ‚P‚XD‚ğQÆ‚µ‚Äì¬‚µ‚½ƒy[ƒW‚ğ‘JˆÚæ‚Éİ’è
 
+app/controllers/application_controller.rb‚ğˆÈ‰º‚Ì‚æ‚¤‚É‹Lq‚·‚éB
+
+—á.j
+  def after_sign_in_path_for(resource)
+    about_path
+  end
+
+  
+  def after_sign_out_path_for(resource)
+    about_path
+  end
+
+y•â‘«z
+after_sign_out_path_for‚Íafter_sign_in_path_for‚Æ“¯‚¶‚­Devise‚ª—pˆÓ‚µ‚Ä‚¢‚éƒƒ\ƒbƒh‚Å
+ƒTƒCƒ“ƒAƒEƒgŒã‚É‚Ç‚±‚É‘JˆÚ‚·‚é‚©‚ğİ’è‚·‚éƒƒ\ƒbƒh‚Å‚·B
+
+Devise‚ÌƒfƒtƒHƒ‹ƒg‚Í“¯‚¶‚­root_path‚É‚È‚Á‚Ä‚¢‚Ü‚·BƒTƒCƒ“ƒAƒEƒgŒã‚Éƒ‹[ƒgƒpƒX‚É‘JˆÚ‚µ‚Ä‚¢‚½‚Ì‚Í‚±‚Ì‚½‚ß‚Å‚·B
+¡‰ñ‚ÍAboutƒy[ƒW‚Ö‘JˆÚ‚·‚é‚æ‚¤‚Éİ’è‚µ‚Ü‚µ‚½B
