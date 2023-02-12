@@ -80,6 +80,19 @@
 　Railsで画像の投稿や表示を行うためのものです。
 　画像は通常のカラムとして保存できないため、特別な保存方法が必要になり、それを行うのがActiveStorageです。
 　
+■rails g devise:install
+　deviseをインストールする
+　ユーザー認証機能作成を無償で利用できる OSS（オープンソースソフトウェア）
+　⇒https://github.com/heartcombo/devise
+　前提条件：gem 'devise'⇒budle install
+
+■rails g devise モデル名
+　devise版のrails g model
+
+■rails g devise:views
+　devise版のbiewファイルが作成される。
+　devise の機能を使って View ファイルを作成することで、上書きしてカスタマイズすることができます。
+
 【SQLite】
 ■irb
 　sqliteという、データベースに必要なソフトウェアのバージョンを確認
